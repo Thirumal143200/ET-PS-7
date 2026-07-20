@@ -1,0 +1,28 @@
+[
+  {
+    "srcip": "192.168.1.105",
+    "sport": 49812,
+    "dstip": "10.240.12.14",
+    "dsport": 502,
+    "proto": "Modbus",
+    "state": "FIN",
+    "dur": 0.12,
+    "sbytes": 128,
+    "dbytes": 64,
+    "attack_cat": "SCADA_Command_Injection",
+    "label": 1
+  },
+  {
+    "srcip": "10.240.12.50",
+    "sport": 52100,
+    "dstip": "10.240.12.1",
+    "dsport": 22,
+    "proto": "TCP",
+    "state": "CON",
+    "dur": 1.45,
+    "sbytes": 512,
+    "dbytes": 1024,
+    "attack_cat": "Normal",
+    "label": 0
+  }
+]

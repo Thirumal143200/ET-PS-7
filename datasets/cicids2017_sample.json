@@ -1,0 +1,11 @@
+[
+  {
+    "flow_id": "FL-9021",
+    "source_ip": "198.51.100.42",
+    "destination_ip": "10.90.101.44",
+    "destination_port": 10144,
+    "flow_packets_s": 45000,
+    "flow_bytes_s": 50000000,
+    "label": "DDoS"
+  }
+]

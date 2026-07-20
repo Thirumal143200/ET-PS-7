@@ -1,0 +1,16 @@
+[
+  {
+    "cve_id": "CVE-2026-1189",
+    "severity": "CRITICAL",
+    "affected_vendor": "SCADA Substation Modbus Controller",
+    "description": "Unauthenticated buffer overflow flaw in port 502 instruction handling allowing arbitrary memory write.",
+    "mitre_technique": "T1190"
+  },
+  {
+    "advisory_id": "CERT-In CNI-2026-088",
+    "severity": "CRITICAL",
+    "title": "APT41 Targeting Southern Asian Grid Control Centers",
+    "description": "Adversaries exploiting DNP3 and Modbus TCP register commands (T1059.001) to cause power grid tripping.",
+    "mitre_technique": "T1059.001"
+  }
+]

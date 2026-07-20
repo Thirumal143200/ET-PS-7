@@ -1,0 +1,11 @@
+[
+  {
+    "user": "op_substation_alpha",
+    "activity": "FILE_EXFILTRATION",
+    "timestamp": "03:14:00 AM",
+    "bytes_transferred": 15000000000,
+    "off_peak": true,
+    "privilege_escalation": true,
+    "risk_score": 0.88
+  }
+]

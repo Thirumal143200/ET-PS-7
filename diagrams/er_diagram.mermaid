@@ -1,0 +1,39 @@
+erDiagram
+    USERS ||--o{ SESSIONS : has
+    USERS ||--o{ AUDIT_LOGS : performs
+    ASSETS ||--o{ LOGS : generates
+    ASSETS ||--o{ ALERTS : triggers
+    ASSETS ||--o{ INCIDENTS : affected_by
+    ASSETS ||--o{ RISK_SCORES : has
+    INCIDENTS ||--o{ ALERTS : contains
+
+    USERS {
+        int id PK
+        string email UK
+        string username UK
+        string role
+        string department
+        boolean is_active
+    }
+
+    ASSETS {
+        int id PK
+        string asset_id UK
+        string name
+        string sector
+        string ip_address
+        string criticality
+        string status
+        float risk_score
+    }
+
+    LOGS {
+        int id PK
+        int asset_id FK
+        string source_ip
+        string destination_ip
+        int destination_port
+        string protocol
+        float anomaly_score
+        boolean is_anomaly
+    }

@@ -1,0 +1,20 @@
+sequenceDiagram
+    autonumber
+    participant Asset as Substation PLC / Router
+    participant API as FastAPI Ingestion Endpoint
+    participant ML as IsolationForest & AutoEncoder
+    participant Agent as SOAR Response Agent
+    participant DB as PostgreSQL Database
+    participant SOC as React SOC Cyber Dashboard
+
+    Asset->>API: POST /api/v1/logs (Telemetry Packet)
+    API->>ML: Run ML Inference (predict)
+    ML-->>API: { is_anomaly: true, score: 0.92, category: "SCADA_Command_Injection" }
+    API->>DB: Save Alert & Anomaly Log Record
+    API->>Agent: Query SOAR Response Agent (playbook recommendation)
+    Agent-->>API: Recommend PLAYBOOK_ISOLATE_SCADA_PLC
+    API-->>SOC: Broadcast Real-time Critical Alert Notification
+    SOC->>API: POST /api/v1/response (Execute SOAR Playbook)
+    API->>Asset: Apply Firewall Isolation Rule (Port 502)
+    API->>DB: Update Asset Status to ISOLATED & Record Audit Log
+    API-->>SOC: Return Playbook Execution Log (245ms)

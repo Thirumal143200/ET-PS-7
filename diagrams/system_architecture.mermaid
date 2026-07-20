@@ -1,0 +1,35 @@
+graph TD
+    subgraph Purdue_Level_3_5 [Purdue Level 3.5 - Enterprise SOC]
+        ReactUI[React + Vite SOC Cyber Dashboard]
+        JWTAuth[JWT & RBAC Security Engine]
+    end
+
+    subgraph Purdue_Level_3 [Purdue Level 3 - Control Center & AI Engine]
+        FastAPI[FastAPI Backend Gateway]
+        MLEngine[Ensemble ML Anomaly Engine]
+        MultiAgent[Multi-Agent AI Orchestrator]
+    end
+
+    subgraph AI_Core [AI & ML Core Services]
+        IsoForest[Isolation Forest Detector]
+        RFClassifier[Random Forest Threat Classifier]
+        AutoEncoder[Deep Neural AutoEncoder]
+        RAGStore[ChromaDB Vectorstore & LangChain]
+    end
+
+    subgraph Purdue_Level_1_2 [Purdue Level 1 & 2 - SCADA Infrastructure]
+        PLC[Modbus SCADA PLCs]
+        Router[Grid Substation Routers]
+        Sensors[ICS Telemetry Sensors]
+    end
+
+    ReactUI -->|REST API| FastAPI
+    FastAPI --> JWTAuth
+    FastAPI --> MLEngine
+    FastAPI --> MultiAgent
+    MLEngine --> IsoForest
+    MLEngine --> RFClassifier
+    MLEngine --> AutoEncoder
+    MultiAgent --> RAGStore
+    PLC -->|Modbus Telemetry| FastAPI
+    Router -->|Syslog NetFlow| FastAPI

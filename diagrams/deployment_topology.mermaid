@@ -1,0 +1,22 @@
+graph TD
+    subgraph Vercel_Cloud [Frontend Deployment - Vercel]
+        VercelCDN[Vercel Global CDN]
+        ReactBundle[React Single Page App]
+    end
+
+    subgraph Render_Cloud [Backend Deployment - Render / Railway]
+        RenderServer[Render Web Service (FastAPI / Uvicorn)]
+        MLEngine[Isolation Forest & AutoEncoder Models]
+        AgentEngine[LangChain Multi-Agent Engine]
+    end
+
+    subgraph Supabase_Cloud [Database Deployment - Supabase / Neon]
+        Postgres[(Managed PostgreSQL Database)]
+    end
+
+    Browser[User SOC Terminal] -->|HTTPS| VercelCDN
+    VercelCDN --> ReactBundle
+    ReactBundle -->|REST API Calls| RenderServer
+    RenderServer --> MLEngine
+    RenderServer --> AgentEngine
+    RenderServer -->|SQLAlchemy / SSL| Postgres

@@ -1,6 +1,8 @@
 import os
 from typing import List, Optional
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "CNI AI Cyber Resilience System"
@@ -19,8 +21,13 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "gemini-2.5-flash"
 
     CHROMA_PERSIST_DIRECTORY: str = "./chroma_db_data"
-    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000"]
+    CORS_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+    ]
 
     model_config = SettingsConfigDict(env_file=".env", extra="allow")
+
 
 settings = Settings()
