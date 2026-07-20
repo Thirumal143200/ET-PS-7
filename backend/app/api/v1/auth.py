@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -29,15 +29,13 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
     access_token = create_access_token(subject=user.email, role=user.role)
 
-    # Store session record
     session_record = SessionModel(
         session_token=access_token,
         user_id=user.id,
-        expires_at=datetime.utcnow() + timedelta(hours=8),
+        expires_at=datetime.now(timezone.utc) + timedelta(hours=8),
     )
     db.add(session_record)
 
-    # Add audit log
     audit = AuditLog(
         user_id=user.id,
         action="USER_LOGIN",
@@ -69,7 +67,9 @@ def logout(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     if user:
         db.query(SessionModel).filter(SessionModel.user_id == user.id).delete()
         audit = AuditLog(
-            user_id=user.id, action="USER_LOGOUT", details=f"User {user.email} logged out."
+            user_id=user.id,
+            action="USER_LOGOUT",
+            details=f"User {user.email} logged out.",
         )
         db.add(audit)
         db.commit()

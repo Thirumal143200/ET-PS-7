@@ -1,9 +1,10 @@
 import React from 'react';
-import { CheckCircle2, Download, FileText, ShieldCheck, AlertCircle } from 'lucide-react';
+import { CheckCircle2, Download, ShieldCheck } from 'lucide-react';
 
 export const ComplianceReports: React.FC = () => {
   const handleDownloadPDF = () => {
-    window.open('http://localhost:8000/api/v1/reports/generate', '_blank');
+    const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+    window.open(`${apiBase}/reports/generate`, '_blank');
   };
 
   const nistControls = [
