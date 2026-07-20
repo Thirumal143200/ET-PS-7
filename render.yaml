@@ -2,21 +2,16 @@ services:
   - type: web
     name: cni-cyber-backend
     env: python
+    rootDir: backend
     region: singapore
-    buildCommand: "cd backend && pip install -r requirements.txt && pip install bcrypt"
-    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    buildCommand: "pip install -r requirements.txt && pip install bcrypt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
     envVars:
+      - key: PYTHONPATH
+        value: .
       - key: ENVIRONMENT
         value: production
       - key: SECRET_KEY
         generateValue: true
       - key: DATABASE_URL
-        fromDatabase:
-          name: cni-postgres-db
-          property: connectionString
-
-databases:
-  - name: cni-postgres-db
-    databaseName: cni_cyber_db
-    user: cni_admin
-    region: singapore
+        value: sqlite:///./cni_cyber_db.sqlite
