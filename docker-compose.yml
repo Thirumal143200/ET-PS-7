@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: cni_postgres_db
+    environment:
+      POSTGRES_DB: cni_cyber_db
+      POSTGRES_USER: cni_admin
+      POSTGRES_PASSWORD: cni_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cni_admin -d cni_cyber_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cni_cyber_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://cni_admin:cni_password@postgres:5432/cni_cyber_db
+      - SECRET_KEY=cni_cyber_resilience_secret_key_change_in_production_2026
+      - ENVIRONMENT=production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cni_cyber_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
