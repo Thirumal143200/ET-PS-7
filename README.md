@@ -46,47 +46,40 @@ India's Critical National Infrastructure (CNI) — power grids, nuclear plants, 
 
 ```mermaid
 graph TB
-    subgraph "🌐 Frontend Layer — Vercel"
+    subgraph Frontend Layer - Vercel
         UI[React + TypeScript + Tailwind]
-        Pages["10 SOC Dashboard Views"]
-        Auth["JWT Auth + RBAC"]
+        Pages[10 SOC Dashboard Views]
+        Auth[JWT Auth + RBAC]
     end
 
-    subgraph "⚙️ Backend Layer — Render"
-        API["FastAPI REST API<br/>/api/v1/*"]
-        SEC["JWT Security<br/>bcrypt Password Hashing"]
-        SEED["Seed Data Service<br/>Auto-init on startup"]
+    subgraph Backend Layer - Render
+        API[FastAPI REST API]
+        SEC[JWT Security]
+        SEED[Seed Data Service]
     end
 
-    subgraph "🧠 AI/ML Engine"
-        IF["Isolation Forest<br/>Unsupervised Anomaly Detection"]
-        RF["Random Forest Classifier<br/>Multi-class Attack Categorization"]
-        AE["Neural AutoEncoder<br/>Reconstruction Error Scoring"]
-        ENS["Ensemble Combiner<br/>Unified Anomaly Score"]
+    subgraph AI/ML Engine
+        IF[Isolation Forest]
+        RF[Random Forest Classifier]
+        AE[Neural AutoEncoder]
+        ENS[Ensemble Combiner]
     end
 
-    subgraph "🤖 Multi-Agent AI System"
-        BA["Behavior Analysis Agent"]
-        TI["Threat Intelligence Agent"]
-        MA["MITRE Mapping Agent"]
-        SR["SOAR Response Agent"]
-        ER["Executive Report Agent"]
-        CA["Compliance Agent"]
-        PA["Prediction Agent"]
-        RA["RAG Knowledge Agent"]
+    subgraph Multi-Agent AI System
+        BA[Behavior Analysis Agent]
+        TI[Threat Intelligence Agent]
+        MA[MITRE Mapping Agent]
+        SR[SOAR Response Agent]
+        ER[Executive Report Agent]
+        CA[Compliance Agent]
+        PA[Prediction Agent]
+        RA[RAG Knowledge Agent]
     end
 
-    subgraph "🗄️ Data Layer"
-        DB["SQLite / PostgreSQL<br/>12 ORM Models"]
-        VEC["ChromaDB<br/>Vector Store"]
-        ALM["Alembic<br/>Migrations"]
-    end
-
-    subgraph "📦 DevOps"
-        DC["Docker Compose"]
-        GH["GitHub Actions CI/CD"]
-        VL["Vercel Deploy"]
-        RD["Render Deploy"]
+    subgraph Data Layer
+        DB[Database Engine]
+        VEC[ChromaDB Vector Store]
+        ALM[Alembic Migrations]
     end
 
     UI --> API
@@ -105,17 +98,15 @@ graph TB
     RA --> VEC
     API --> DB
     DB --> ALM
-    UI --> VL
-    API --> RD
-    GH --> DC
 ```
 
 ---
 
-## 🔄 Data Flow Diagram
+## 🔄 Data Flow Sequence
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant OT as OT/IT Network
     participant LOG as Log Ingestion API
     participant ML as ML Anomaly Engine
@@ -124,19 +115,19 @@ sequenceDiagram
     participant DB as Database
     participant UI as SOC Dashboard
 
-    OT->>LOG: POST /api/v1/logs (raw telemetry)
-    LOG->>ML: Extract 10 network features
+    OT->>LOG: POST /api/v1/logs
+    LOG->>ML: Extract network features
     ML->>ML: Isolation Forest scoring
     ML->>ML: Random Forest classification
-    ML->>ML: AutoEncoder reconstruction error
-    ML->>AGT: Anomaly score + attack class
+    ML->>ML: AutoEncoder reconstruction
+    ML->>AGT: Anomaly score and attack class
     AGT->>AGT: MITRE ATT&CK mapping
-    AGT->>AGT: Threat intelligence correlation
-    AGT->>DB: Store alert + incident
+    AGT->>AGT: Threat intel correlation
+    AGT->>DB: Store alert and incident
     AGT->>SOAR: Trigger containment playbook
     SOAR->>DB: Log playbook execution
     DB->>UI: Real-time dashboard update
-    UI->>UI: Display alert + risk index
+    UI->>UI: Display alert and risk index
 ```
 
 ---
@@ -145,15 +136,15 @@ sequenceDiagram
 
 ```mermaid
 erDiagram
-    USERS ||--o{ AUDIT_LOGS : "creates"
-    USERS ||--o{ SESSIONS : "has"
-    ASSETS ||--o{ LOGS : "generates"
-    ASSETS ||--o{ RISK_SCORES : "has"
-    LOGS ||--o{ ALERTS : "triggers"
-    ALERTS ||--o{ INCIDENTS : "escalates_to"
-    INCIDENTS ||--o{ MITRE_MAPPINGS : "mapped_to"
-    INCIDENTS ||--o{ PLAYBOOKS : "triggers"
-    INCIDENTS ||--o{ REPORTS : "documented_in"
+    USERS ||--o{ AUDIT_LOGS : creates
+    USERS ||--o{ SESSIONS : has
+    ASSETS ||--o{ LOGS : generates
+    ASSETS ||--o{ RISK_SCORES : has
+    LOGS ||--o{ ALERTS : triggers
+    ALERTS ||--o{ INCIDENTS : escalates_to
+    INCIDENTS ||--o{ MITRE_MAPPINGS : mapped_to
+    INCIDENTS ||--o{ PLAYBOOKS : triggers
+    INCIDENTS ||--o{ REPORTS : documented_in
 
     USERS {
         int id PK
@@ -162,7 +153,7 @@ erDiagram
         string hashed_password
         string role
         string department
-        bool mfa_enabled
+        boolean mfa_enabled
     }
     ASSETS {
         int id PK
@@ -180,7 +171,7 @@ erDiagram
         string severity
         float anomaly_score
         float confidence
-        bool is_acknowledged
+        boolean is_acknowledged
     }
 ```
 
@@ -229,7 +220,7 @@ erDiagram
 │                    └────────┬────────┘                           │
 └─────────────────────────────┼────────────────────────────────────┘
                               ▼
-              Multi-Agent AI System → SOAR Response
+              Multi-Agent AI System -> SOAR Response
 ```
 
 **Training Datasets:**
@@ -255,29 +246,29 @@ erDiagram
 ## 🚀 Deployment Architecture
 
 ```mermaid
-graph LR
-    subgraph "User"
-        B["Browser / SOC Analyst"]
+flowchart LR
+    subgraph User
+        B[Browser / SOC Analyst]
     end
 
-    subgraph "CDN — Vercel"
-        F["React SPA<br/>et-ps-7.vercel.app<br/>HTTPS + Global CDN"]
+    subgraph CDN - Vercel
+        F[React SPA - et-ps-7.vercel.app]
     end
 
-    subgraph "Backend — Render Free"
-        A["FastAPI<br/>et-ps-7.onrender.com<br/>HTTPS + CORS"]
+    subgraph Backend - Render
+        A[FastAPI - et-ps-7.onrender.com]
     end
 
-    subgraph "Database"
-        D["SQLite<br/>(Local / Embedded)<br/>or PostgreSQL"]
+    subgraph Database
+        D[Database Engine]
     end
 
-    subgraph "CI/CD"
-        G["GitHub Actions<br/>pytest + black + isort<br/>+ npm build"]
+    subgraph CI/CD Pipeline
+        G[GitHub Actions]
     end
 
     B --> F
-    F -->|"VITE_API_BASE_URL"| A
+    F --> A
     A --> D
     G --> F
     G --> A
@@ -384,8 +375,7 @@ ET-PS-7/
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 ├── CHANGELOG.md
-├── CODE_OF_CONDUCT.md
-└── README.md
+└── CODE_OF_CONDUCT.md
 ```
 
 ---
@@ -488,20 +478,20 @@ npm run dev
 docker compose up --build -d
 
 # Access at:
-# Frontend → http://localhost:3000
-# Backend  → http://localhost:8000
+# Frontend -> http://localhost:3000
+# Backend  -> http://localhost:8000
 ```
 
 ---
 
 ## ☁️ Free Cloud Deployment
 
-### Database → [Neon PostgreSQL](https://neon.tech) or [Supabase](https://supabase.com)
+### Database -> [Neon PostgreSQL](https://neon.tech) or [Supabase](https://supabase.com)
 ```
 DATABASE_URL=postgresql://user:pass@host:5432/cni_cyber_db?sslmode=require
 ```
 
-### Backend → [Render Free Tier](https://render.com)
+### Backend -> [Render Free Tier](https://render.com)
 ```yaml
 Root Directory:    backend
 Build Command:     pip install -r requirements.txt
@@ -515,7 +505,7 @@ Environment Variables:
   DATABASE_URL=<your-postgres-url>
 ```
 
-### Frontend → [Vercel Free Tier](https://vercel.com)
+### Frontend -> [Vercel Free Tier](https://vercel.com)
 ```
 Root Directory:    frontend
 Framework:         Vite
@@ -531,10 +521,10 @@ Environment Variables:
 ## ✅ Quality Gates
 
 ```
-pytest backend/tests         → 6/6 PASSED
-black --check app tests      → PASSED (100% compliant)
-isort --check-only app tests → PASSED (100% sorted)
-tsc -b && vite build         → PASSED (0 type errors)
+pytest backend/tests         -> 6/6 PASSED
+black --check app tests      -> PASSED (100% compliant)
+isort --check-only app tests -> PASSED (100% sorted)
+tsc -b && vite build         -> PASSED (0 type errors)
 ```
 
 ---
